@@ -1,20 +1,27 @@
+//define wheel pins
 #define leftPWM 6
 #define leftIN1 7
 #define leftIN2 8
-
 #define rightPWM 9
 #define rightIN1 10
 #define rightIN2 11
 
+//define sensor pins
+#define trig 13
+#define echo 12
 
 void setup() {
+  //define wheel pins as output
   pinMode(leftPWM, OUTPUT);
   pinMode(leftIN1, OUTPUT);
   pinMode(leftIN2, OUTPUT);
-
   pinMode(rightPWM, OUTPUT);
   pinMode(rightIN1, OUTPUT);
   pinMode(rightIN2, OUTPUT);
+
+  //define trig as output and echo as input
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
 }
 
 void loop() {
