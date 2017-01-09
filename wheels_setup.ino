@@ -1,3 +1,5 @@
+#include <Servo.h> //include servo library
+
 //define wheel pins
 #define leftPWM 6
 #define leftIN1 7
@@ -10,7 +12,12 @@
 #define trig 13
 #define echo 12
 
+//define servo
+Servo lilservo;
+
 void setup() {
+  Serial.begin (9600);
+
   //define wheel pins as output
   pinMode(leftPWM, OUTPUT);
   pinMode(leftIN1, OUTPUT);
@@ -25,17 +32,36 @@ void setup() {
 }
 
 void loop() {
-  Serial.println("kör framåt");
-  
-  delay(5000);
-  digitalWrite(leftIN1, HIGH);
-  digitalWrite(leftIN2, LOW);
-  analogWrite(leftPWM, 200);
+  long duration, distance;
 
-  digitalWrite(rightIN1, LOW);
-  digitalWrite(rightIN2, HIGH);
-  analogWrite(rightPWM, 200);
-  Serial.println("hello world");
-  
-  delay(5000);
+  digitalWrite(trig, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig, LOW);
+  duration = pulseIn(echo, HIGH);
+  distance = (duration/2) / 29.1;
+
+ if (distance < 20) {
+    Serial.println("Too close");
+    Serial.print(distance);
+    Serial.println(" cm");
+  }
+  else {
+    Serial.println("All good!");
+    Serial.print(distance);
+    Serial.println(" cm");
+  }
+  delay(500);
+//  
+//  delay(5000); //FIXME ta bort seen
+//  digitalWrite(leftIN1, HIGH);
+//  digitalWrite(leftIN2, LOW);
+//  analogWrite(leftPWM, 200);
+//
+//  digitalWrite(rightIN1, LOW);
+//  digitalWrite(rightIN2, HIGH);
+//  analogWrite(rightPWM, 200);
+//  Serial.println("hello world");
+//  
 }
